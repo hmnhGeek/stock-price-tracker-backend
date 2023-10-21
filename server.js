@@ -6,7 +6,7 @@ const cron = require('node-cron');
 const app = express();
 const port = process.env.PORT || 3001;
 
-const RATE_UPDATE_FREQ_IN_SECONDS = 5;
+const RATE_UPDATE_FREQ_IN_SECONDS = 30;
 const CONNECTION_STRING_MONGO_DB = "mongodb+srv://himanshusharmaforwork:atlas123@cluster0.qhlovfi.mongodb.net"
 
 // Use the cors middleware to enable CORS
