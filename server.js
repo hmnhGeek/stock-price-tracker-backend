@@ -7,13 +7,14 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 const RATE_UPDATE_FREQ_IN_SECONDS = 5;
+const CONNECTION_STRING_MONGO_DB = "mongodb+srv://himanshusharmaforwork:atlas123@cluster0.qhlovfi.mongodb.net"
 
 // Use the cors middleware to enable CORS
 app.use(cors());
 app.use(express.json());
 
 // Set up MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/stock_tracker', {
+mongoose.connect(`${CONNECTION_STRING_MONGO_DB}/stock_tracker`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
