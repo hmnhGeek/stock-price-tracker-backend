@@ -6,7 +6,7 @@ const cron = require('node-cron');
 const app = express();
 const port = process.env.PORT || 3001;
 
-const RATE_UPDATE_FREQ_IN_SECONDS = 5;
+const RATE_UPDATE_FREQ_IN_SECONDS = 30;
 const CONNECTION_STRING_MONGO_DB = "mongodb+srv://himanshusharmaforwork:atlas123@cluster0.qhlovfi.mongodb.net"
 
 // Use the cors middleware to enable CORS
@@ -34,28 +34,28 @@ const stockSchema = new mongoose.Schema({
 
 const Stock = mongoose.model('Stock', stockSchema);
 
-// // Create a function to update stock prices (mocked in this example)
-// function updateStockPrices() {
-//   // Replace this with logic to fetch updated stock prices from a real API
-//   Stock.find({}).exec().then(stocks => {
-//     const stocksArray = stocks.map(stock => stock.toObject());
+// Create a function to update stock prices (mocked in this example)
+function updateStockPrices() {
+  // Replace this with logic to fetch updated stock prices from a real API
+  Stock.find({}).exec().then(stocks => {
+    const stocksArray = stocks.map(stock => stock.toObject());
 
-//     stocksArray.forEach(async (stock) => {
-//         try {
-//             const newPrice = Math.random() * 100;
-//             await Stock.findOneAndUpdate({ _id: stock._id }, { price: newPrice });
-//             console.log("updated");
-//         } catch (err) {
-//             console.error('Error updating stock:', err);
-//         }
-//     });
-//     }).catch(err => console.log(err));
-// }
+    stocksArray.forEach(async (stock) => {
+        try {
+            const newPrice = Math.random() * 100;
+            await Stock.findOneAndUpdate({ _id: stock._id }, { price: newPrice });
+            console.log("updated");
+        } catch (err) {
+            console.error('Error updating stock:', err);
+        }
+    });
+    }).catch(err => console.log(err));
+}
 
-// // Schedule the function to run every 30 seconds
-// cron.schedule(`*/${RATE_UPDATE_FREQ_IN_SECONDS} * * * * *`, () => {
-//     updateStockPrices();
-// });
+// Schedule the function to run every 30 seconds
+cron.schedule(`*/${RATE_UPDATE_FREQ_IN_SECONDS} * * * * *`, () => {
+    updateStockPrices();
+});
   
 
 // Mock API Endpoint: Get stock price for a given symbol
