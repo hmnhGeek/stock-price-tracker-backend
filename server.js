@@ -44,6 +44,7 @@ function updateStockPrices() {
         try {
             const newPrice = Math.random() * 100;
             await Stock.findOneAndUpdate({ _id: stock._id }, { price: newPrice });
+            console.log("updated");
         } catch (err) {
             console.error('Error updating stock:', err);
         }
